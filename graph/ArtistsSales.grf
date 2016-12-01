@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Graph author="sprak" created="Thu Dec 01 00:37:00 PST 2016" guiVersion="4.4.0.M1" id="1480586643024" licenseCode="RegCode" name="ArtistsSales" showComponentDetails="true">
+<Global>
+<Metadata id="Metadata2" previewAttachment="${DATAIN_DIR}/album_sales.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="," label="album_sales.csv" name="album_sales_csv" previewAttachment="${DATAIN_DIR}/album_sales.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="Album_Title" type="string"/>
+<Field eofAsDelimiter="true" name="Sales" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata6" previewAttachment="${DATAIN_DIR}/album_sales.csv" previewAttachmentCharset="UTF-8">
+<Record fieldDelimiter="," label="album_sales.csv" name="album_sales_csv" previewAttachment="${DATAIN_DIR}/album_sales.csv" previewAttachmentCharset="UTF-8" quoteChar="both" quotedStrings="true" recordDelimiter="\r\n" skipSourceRows="1" type="delimited">
+<Field name="Album_Title" type="string"/>
+<Field eofAsDelimiter="true" name="Sales" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata7" previewAttachment="${DATAIN_DIR}/album_sales.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="~" label="album_sales.csv" name="album_sales_new" previewAttachment="${DATAIN_DIR}/album_sales.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="0" type="delimited">
+<Field name="Field1" type="string"/>
+<Field eofAsDelimiter="true" name="Field2" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata8" previewAttachment="${DATAIN_DIR}/album_sales.csv" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="~" label="album_sales.csv" name="album_sales_new1" previewAttachment="${DATAIN_DIR}/album_sales.csv" previewAttachmentCharset="ISO-8859-1" quoteChar="both" quotedStrings="false" recordDelimiter="\r\n" skipSourceRows="0" type="delimited">
+<Field name="Album_title" type="string"/>
+<Field eofAsDelimiter="true" name="Sales" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata3">
+<Record fieldDelimiter=";" name="albums" recordDelimiter="\n" type="delimited">
+<Field name="album_title" size="255" type="string"/>
+<Field name="artist_name" size="255" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata10">
+<Record fieldDelimiter=";" name="artist_sales" recordDelimiter="\n" type="delimited">
+<Field name="artist_name" size="255" type="string"/>
+<Field name="total_sales" size="11" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata12" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="," name="finalDBOutput" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" type="delimited">
+<Field name="artist_name" type="string"/>
+<Field name="total_sales" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata1">
+<Record fieldDelimiter="|" name="recordName1" recordDelimiter="\r\n" type="delimited">
+<Field name="album_title" type="string"/>
+<Field name="artist_name" type="string"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata11">
+<Record fieldDelimiter="," name="recordName2" recordDelimiter="\r\n" type="delimited">
+<Field name="artist_name" type="string"/>
+<Field name="total_sales" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata5">
+<Record fieldDelimiter="," name="recordName3" recordDelimiter="\r\n" type="delimited">
+<Field name="artist_name" type="string"/>
+<Field name="total_sales" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata0" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="|" name="SalesData" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" type="delimited">
+<Field name="Album_Title" type="string"/>
+<Field name="Sales" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata4" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="," name="salesFromExcel" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" type="delimited">
+<Field name="artist_name" type="string"/>
+<Field name="sales" type="integer"/>
+</Record>
+</Metadata>
+<Metadata id="Metadata9" previewAttachmentCharset="ISO-8859-1">
+<Record fieldDelimiter="," name="salesFromExcel_1" previewAttachmentCharset="ISO-8859-1" recordDelimiter="\r\n" type="delimited">
+<Field name="Artist_Title" type="string"/>
+<Field name="Sales" type="integer"/>
+</Record>
+</Metadata>
+<Connection database="MYSQL" dbURL="jdbc:mysql://localhost:3306/music_database" id="JDBC0" jdbcSpecific="MYSQL" name="NewConnection" password="root" type="JDBC" user="root"/>
+<GraphParameters>
+<GraphParameterFile fileURL="workspace.prm"/>
+</GraphParameters>
+<Dictionary/>
+</Global>
+<Phase number="0">
+<Node aggregateKey="artist_name" guiName="Aggregate" guiX="904" guiY="258" id="AGGREGATE" mapping="$artist_name:=$artist_name;$total_sales:=sum($sales);" sorted="false" type="AGGREGATE"/>
+<Node dataPolicy="lenient" dbConnection="JDBC0" guiName="DBInputTable" guiX="332" guiY="366" id="DBINPUT_TABLE" type="DB_INPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[select distinct a.album_title ,c.artist_name 
+from albums a inner join tracks b inner join artists c
+on a.album_id = b.album_id and b.artist_id = c.artist_id]]></attr>
+</Node>
+<Node dataPolicy="lenient" dbConnection="JDBC0" fetchSize="10000" guiName="DBInputTable" guiX="714" guiY="495" id="DBINPUT_TABLE1" type="DB_INPUT_TABLE">
+<attr name="sqlQuery"><![CDATA[select distinct artist_name, total_sales from artist_sales order by total_sales DESC LIMIT 20]]></attr>
+</Node>
+<Node dbConnection="JDBC0" dbTable="artist_sales" fieldMap="$artist_name:=artist_name;$total_sales:=total_sales;" guiName="DBOutputTable" guiX="1259" guiY="239" id="DBOUTPUT_TABLE" type="DB_OUTPUT_TABLE"/>
+<Node guiName="ExtHashJoin" guiX="640" guiY="249" id="EXT_HASH_JOIN" joinKey="$Album_title=$album_title" joinType="inner" type="EXT_HASH_JOIN">
+<attr name="transform"><![CDATA[//#CTL2
+
+// Transforms input record into output record.
+function integer transform() {
+	$out.0.sales = $in.0.Sales;
+	$out.0.artist_name = $in.1.artist_name;
+
+	return ALL;
+}
+
+// Called during component initialization.
+// function boolean init() {}
+
+// Called during each graph run before the transform is executed. May be used to allocate and initialize resources
+// required by the transform. All resources allocated within this method should be released
+// by the postExecute() method.
+// function void preExecute() {}
+
+// Called only if transform() throws an exception.
+// function integer transformOnError(string errorMessage, string stackTrace) {}
+
+// Called during each graph run after the entire transform was executed. Should be used to free any resources
+// allocated within the preExecute() method.
+// function void postExecute() {}
+
+// Called to return a user-defined error message when an error occurs.
+// function string getMessage() {}
+]]></attr>
+</Node>
+<Node guiName="ExtSort" guiX="1094" guiY="366" id="EXT_SORT" sortKey="total_sales(d)" type="EXT_SORT"/>
+<Node existingSheetsActions="REMOVE_SHEETS" fileURL="${DATAOUT_DIR}/total_sales.xlsx" guiName="SpreadsheetDataWriter" guiX="1020" guiY="495" id="SPREADSHEET_DATA_WRITER" sheet="Sheet0" type="SPREADSHEET_WRITER" writeMode="OVERWRITE_SHEET_IN_MEMORY">
+<attr name="mapping"><![CDATA[<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mapping>
+    <globalAttributes>
+        <orientation>VERTICAL</orientation>
+        <step>1</step>
+        <writeHeader>true</writeHeader>
+    </globalAttributes>
+    <defaultSkip>1</defaultSkip>
+    <headerGroups>
+        <headerGroup skip="1">
+            <cloverField>artist_name</cloverField>
+            <headerRanges>
+                <headerRange begin="A1"/>
+            </headerRanges>
+        </headerGroup>
+        <headerGroup skip="1">
+            <cloverField>total_sales</cloverField>
+            <headerRanges>
+                <headerRange begin="B1"/>
+            </headerRanges>
+        </headerGroup>
+    </headerGroups>
+</mapping>
+]]></attr>
+</Node>
+<Node dataPolicy="lenient" fileURL="${DATAIN_DIR}/album_sales.csv" guiName="UniversalDataReader" guiX="307" guiY="153" id="UNIVERSAL_DATA_READER" numRecords="15000" quoteCharacter="both" skipFirstLine="false" trim="true" type="DATA_READER"/>
+<Edge fromNode="AGGREGATE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge9" inPort="Port 0 (in)" metadata="Metadata5" outPort="Port 0 (out)" toNode="EXT_SORT:0"/>
+<Edge fromNode="DBINPUT_TABLE:0" guiBendpoints="" guiRouter="Manhattan" id="Edge2" inPort="Port 1 (slave)" metadata="Metadata1" outPort="Port 0 (out)" toNode="EXT_HASH_JOIN:1"/>
+<Edge fromNode="DBINPUT_TABLE1:0" guiBendpoints="" guiRouter="Manhattan" id="Edge16" inPort="Port 0 (input)" metadata="Metadata11" outPort="Port 0 (out)" toNode="SPREADSHEET_DATA_WRITER:0"/>
+<Edge fromNode="EXT_HASH_JOIN:0" guiBendpoints="" guiRouter="Manhattan" id="Edge8" inPort="Port 0 (in)" metadata="Metadata4" outPort="Port 0 (out)" toNode="AGGREGATE:0"/>
+<Edge fromNode="EXT_SORT:0" guiBendpoints="" guiRouter="Manhattan" id="Edge17" inPort="Port 0 (in)" metadata="Metadata12" outPort="Port 0 (out)" toNode="DBOUTPUT_TABLE:0"/>
+<Edge fromNode="UNIVERSAL_DATA_READER:0" guiBendpoints="" guiRouter="Manhattan" id="Edge13" inPort="Port 0 (driver)" metadata="Metadata8" outPort="Port 0 (output)" toNode="EXT_HASH_JOIN:0"/>
+</Phase>
+</Graph>
